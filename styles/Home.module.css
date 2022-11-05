@@ -207,7 +207,11 @@
   .eyeSVG {
     left: 39.5%;
     width: 20%;
-    bottom: 33px;
+    bottom: 35px;
+  }
+
+  .scale{
+    scale: 1.01;
   }
 
 }

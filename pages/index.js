@@ -4,17 +4,35 @@ import Link from 'next/link';
 import Image from 'next/image';
 import emailjs from '@emailjs/browser';
 import styles from '../styles/Home.module.css';
-import eyeBackground from './eyeBackground.svg'
-import eye from './eyeHole.svg'
-import outnetWebsite from './outnetWebsite.jpg'
-import githubIcon from './githubIcon.svg'
-import linkedinIcon from './linkedinIcon.svg'
-import mediumIcon from './mediumIcon.svg'
-import zchromeWebsite from './zchromeWebsite.jpg'
+// import eyeBackground from './images/eyeBackground.svg'
+// import eye from '../public/eyeHole.svg'
+// import outnetWebsite from './images/outnetWebsite.jpg'
+// import githubIcon from './images/githubIcon.svg'
+// import linkedinIcon from './images/linkedinIcon.svg'
+// import mediumIcon from './images/mediumIcon.svg'
+// import zchromeWebsite from './images/zchromeWebsite.jpg'
 
 export default function Home() {
 
   const form = useRef();
+
+
+  const scroll2Element = (elemID) => {
+    window.scrollTo({
+      top: document.getElementById(elemID).offsetTop - 20,
+      behavior: "smooth",
+    });
+  }
+
+  const linkHandler = (e) => {
+    e.preventDefault();
+    const goto = e.target.getAttribute("goto");
+    setTimeout(() => {
+      scroll2Element(goto);
+
+    }, 0);
+  }
+
 
   const sendEmail = async (e) => {
     e.preventDefault();
@@ -133,17 +151,17 @@ export default function Home() {
         <title>Bilal&apos;s Portofolio</title>
         <html lang='en' />
       </Head>
-      <h1 className={`text-center mt-7 text-3xl xl:text-4xl font-semibold`}>Khawaja Muhammad Bilal</h1>
+      <h1 className={`text-center mt-7 text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl font-semibold`}>Khawaja Muhammad Bilal</h1>
       <header className={``} id="navContainer">
-        <nav className={` ${styles.navbar} container text-lg m-0 xl:mx-auto rounded xl:w-1/3 lg:w-2/3 md:w-3/4 w-100 flex justify-center px-4 pt-4 text-center mx-auto`}>
-          <Link href="#about" prefetch={false} id='navChild1' className={` ${styles.navbarLink} eyeExpandOnHover hover:bg-white transition-all hover:transition-all hover:text-[#363636] font-semibold font- border-y-2 w-1/2 border-l-2 rounded-l xl:p-2 p-2`}>About</Link>
-          <Link href="#projects" prefetch={false} id='navChild2' className={`${styles.navbarLink} eyeExpandOnHover hover:bg-white transition-all hover:transition-all hover:text-[#363636] font-semibold border-y-2 w-1/2  xl:p-2 p-2`}>Projects</Link>
-          <Link href="#contact" prefetch={false} id='navChild3' className={`${styles.navbarLink} eyeExpandOnHover hover:bg-white transition-all hover:transition-all hover:text-[#363636] font-semibold border-y-2 w-1/2 border-r-2 rounded-r xl:p-2 p-2`}>Contact</Link>
+        <nav className={` ${styles.navbar} container text-lg xl:text-xl m-0 xl:mx-auto rounded xl:w-1/3 lg:w-2/3 md:w-3/4 w-100 flex justify-center px-4 pt-4 text-center mx-auto`}>
+          <p goto="about" prefetch="false" onClick={linkHandler} id='navChild1' className={` ${styles.navbarLink} cursor-pointer eyeExpandOnHover hover:bg-white transition-all hover:transition-all hover:text-[#363636] font-semibold font- border-y-2 w-1/2 border-l-2 rounded-l xl:p-2 p-2`}>About</p>
+          <p goto="projects" prefetch="false" onClick={linkHandler} id='navChild2' className={`${styles.navbarLink} cursor-pointer eyeExpandOnHover hover:bg-white transition-all hover:transition-all hover:text-[#363636] font-semibold border-y-2 w-1/2  xl:p-2 p-2`}>Projects</p>
+          <p goto="contact" prefetch="false" onClick={linkHandler} id='navChild3' className={`${styles.navbarLink} cursor-pointereyeExpandOnHover hover:bg-white transition-all hover:transition-all hover:text-[#363636] font-semibold border-y-2 w-1/2 border-r-2 rounded-r xl:p-2 p-2`}>Contact</p>
         </nav>
         <Image
           className={`mx-auto w-1/1 xl:w-1/4 lg:w-1/2 md:w-2/3 ${styles.eyeBackground}`}
           id="eyeBack"
-          src={eyeBackground}
+          src='/eyeBackground.svg'
           alt='...'
           loading='eager'
           priority
@@ -152,7 +170,7 @@ export default function Home() {
         />
         <div className={`${styles.eyeTrackerContainer} `} id="container" >
           <div className={`${styles.eyeContainer} mx-auto`}>
-            <Image src={eye} width={80} loading='eager' height={80} alt="..." className={`${styles.eyeSVG}`} id="eye" />
+            <Image src='/eyeHole.svg' width={80} loading='eager' height={80} alt="..." className={`${styles.eyeSVG}`} id="eye" />
           </div>
         </div>
       </header>
@@ -171,13 +189,13 @@ export default function Home() {
           <p className={`mt-20 text-3xl text-center font-semibold ${styles.projectsHeading}`} id="projects">Projects</p>
           <section className={`mx-auto mt-10 container flex flex-col xl:flex-row gap-10 xl:w-3/4 w-4/5 `}>
             <div className={`mx-auto xl:w-1/2`}>
-              <Image src={outnetWebsite} width={700} height={500} alt="..." className={`mx-auto rounded eyeExpandOnHover`} id="projectImage" />
+              <Image src='/outnetWebsite.jpg' width={700} height={500} alt="..." className={`mx-auto rounded eyeExpandOnHover`} id="projectImage" />
               <p className={`font-thin xl:text-lg mt-5 `}>A clone of the e-commerce website &apos;The Outnet&apos;, link to github repo is <Link href='https://github.com/beelal-k/the-outnet-clone' className={`underline font-medium eyeExpandOnHover`}>here</Link></p>
               <p className={`font-semibold mt-1`}>Built with: <span className={`font-thin`}>React.js, Bootstrap,  MongoDB, Express.js</span></p>
             </div>
 
             <div className={`mx-auto xl:w-1/2 `}>
-              <Image src={zchromeWebsite} width={700} height={500} alt="..." className={`mx-auto eyeExpandOnHover rounded`} />
+              <Image src='/zchromeWebsite.jpg' width={700} height={500} alt="..." className={`mx-auto eyeExpandOnHover rounded`} />
               <p className={`font-thin xl:text-lg mt-5 `}>A surface pattern design market, currently a <span className={`font-semibold`}>work in progress</span>.</p>
               <p className={`font-semibold mt-1 `}>Built with: <span className={`font-thin`}>React.js, Bootstrap, Firebase</span></p>
             </div>
@@ -200,11 +218,22 @@ export default function Home() {
 
       </section>
 
-      <footer className={`mt-20 xl:justify-start justify-center items-center mx-auto xl:w-1/3  flex flex-col gap-5 pb-20`}>
-        <Link href='https://github.com/beelal-k' prefetch={false} target="_blank" className={`flex items-center eyeExpandOnHover`}><Image src={githubIcon} width={30} height={40} alt="..." className={`inline mr-4 `} /><span className={`border-b`}>github.com/beelal-k</span></Link>
-        <Link href='https://www.linkedin.com/in/bilalk902/' prefetch={false} target="_blank" className={`flex items-center eyeExpandOnHover `}><Image src={linkedinIcon} width={23} height={40} alt="..." className={`ml-1 inline mr-5`} /><span className={`border-b`}>linkedin.com/in/bilalk902/</span></Link>
-        <Link href='https://medium.com/@bilal_k' prefetch={false} target="_blank" className={`flex items-center eyeExpandOnHover `}><Image src={mediumIcon} width={25} height={40} alt="..." className={`ml-1 inline mr-5`} /><span className={`border-b`}>medium.com/@bilal_k</span></Link>
+      <footer className={`mt-20 xl:justify-start justify-center items-center mx-auto xl:w-1/3 flex flex-col gap-5 pb-20`}>
+        <Link href='https://github.com/beelal-k' prefetch={false} target="_blank" className={`flex items-center eyeExpandOnHover`}><Image src='/githubIcon.svg' width={30} height={40} alt="..." className={`inline mr-4 `} /><span className={`border-b`}>github.com/beelal-k</span></Link>
+        <Link href='https://www.linkedin.com/in/bilalk902/' prefetch={false} target="_blank" className={`flex items-center eyeExpandOnHover `}><Image src='/linkedinIcon.svg' width={23} height={40} alt="..." className={`ml-1 inline mr-5`} /><span className={`border-b`}>linkedin.com/in/bilalk902/</span></Link>
+        <Link href='https://medium.com/@bilal_k' prefetch={false} target="_blank" className={`flex items-center eyeExpandOnHover `}><Image src='/mediumIcon.svg' width={25} height={40} alt="..." className={`ml-1 inline mr-5`} /><span className={`border-b`}>medium.com/@bilal_k</span></Link>
       </footer>
+
+
+      {/* EMAIL SENT POPUP */}
+
+      {/* <div className={`container flex align-end justify-end border`}> */}
+      <dialog open className={`bg-transparent p-3 container `}>
+        <div className={`border-2 rounded p-4 w-1/4 float-right`}>
+          <p className={`text-[#f3f3f3] text-xl `}>Email sent!</p>
+        </div>
+      </dialog>
+      {/* </div> */}
 
     </>
 
