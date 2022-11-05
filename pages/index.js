@@ -19,7 +19,7 @@ export default function Home() {
   const sendEmail = async (e) => {
     e.preventDefault();
 
-    await emailjs.sendForm('service_bilalk_gmail', 'template_6ub1rea', form.current, 'Pps2Sl7jHJVuNE6PI')
+    await emailjs.sendForm('service_bilalk_gmail', 'template_6ub1rea', form.current, process.env.NEXT_PUBLIC_EMAILJS_KEY)
       .then((result) => {
         console.log()
         console.log(result.text);
