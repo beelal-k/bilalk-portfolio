@@ -184,6 +184,36 @@
 
 }
 
+.emailDialog{
+  position: fixed;
+  top: 85%;
+  right: 0%;
+}
+
+.emailDialog::before{
+  content: '';
+  position: absolute;
+  width: 375px;
+  height:5px;
+  /* top: 400px; */
+  rotate: 0deg;
+  right:13px ;
+  bottom: 14px;
+  background-color: #1a1a1a;  
+  animation-name: loadingDecrease;
+  animation-duration: 6s;
+}
+
+@keyframes loadingDecrease {
+  10%{
+    width: 360px;
+  }
+  100%{
+    width: 0px;
+  }
+
+}
+
 
 @media (max-width:1280px) {
   .eyeSVG {

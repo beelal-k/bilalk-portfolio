@@ -15,8 +15,17 @@ import styles from '../styles/Home.module.css';
 export default function Home() {
 
   const form = useRef();
+  const emailDialog = useRef()
+  const openEmailDialog = () =>{
+    emailDialog.current.open = true;
+    setTimeout(closeEmailDialog, 6000)    
+    
+  }
 
-
+  const closeEmailDialog = () =>{
+    emailDialog.current.open = false;
+  }
+  
   const scroll2Element = (elemID) => {
     window.scrollTo({
       top: document.getElementById(elemID).offsetTop - 20,
@@ -194,7 +203,7 @@ export default function Home() {
               <p className={`font-semibold mt-1`}>Built with: <span className={`font-thin`}>React.js, Bootstrap,  MongoDB, Express.js</span></p>
             </div>
 
-            <div className={`mx-auto xl:w-1/2 `}>
+            <div className={`mx-auto xl:w-1/2 `} onClick={openEmailDialog}>
               <Image src='/zchromeWebsite.jpg' width={700} height={500} alt="..." className={`mx-auto eyeExpandOnHover rounded`} />
               <p className={`font-thin xl:text-lg mt-5 `}>A surface pattern design market, currently a <span className={`font-semibold`}>work in progress</span>.</p>
               <p className={`font-semibold mt-1 `}>Built with: <span className={`font-thin`}>React.js, Bootstrap, Firebase</span></p>
@@ -228,9 +237,10 @@ export default function Home() {
       {/* EMAIL SENT POPUP */}
 
       {/* <div className={`container flex align-end justify-end border`}> */}
-      <dialog open className={`bg-transparent p-3 container `}>
-        <div className={`border-2 rounded p-4 w-1/4 float-right`}>
-          <p className={`text-[#f3f3f3] text-xl `}>Email sent!</p>
+      <dialog  className={`bg-transparent p-3 container ${styles.emailDialog}`} ref={emailDialog}>
+        <div className={`border-2 border-[#1a1a1a] bg-[#f3f3f3] flex justify-between rounded p-4 w-1/4 float-right`}>
+          <p className={`text-[#363636] text-xl font-semibold `}>Email sent!</p>
+          <Image src="/closeIcon.svg" width={20} height={20} alt="..." className={`cursor-pointer`} onClick={closeEmailDialog}/>
         </div>
       </dialog>
       {/* </div> */}
