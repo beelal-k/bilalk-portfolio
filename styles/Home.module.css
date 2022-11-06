@@ -27,6 +27,7 @@
   top: -9px;
   z-index: 1;
 
+
 }
 
 
@@ -41,11 +42,12 @@
   position: absolute;
   top: 0%;
   width: 100%;
+
 }
 
 .eyeSVG {
   position: absolute;
-  bottom: 20px;
+  bottom: 23px;
   transition: 0.05s ease-in-out;
   left: 46.5%;
   width: 7%;
@@ -203,6 +205,35 @@
   }
 }
 
+.eyeBounce{
+  animation-name:eyeBounce ;
+  animation-duration: 0.5s;
+}
+
+@keyframes eyeBounce {
+
+ 20%{
+  transform: translate(3%);
+ }
+  
+ 40%{
+  transform: translate(-3%);
+ }
+ 60%{
+  transform: translate(3%);
+ }
+  
+ 80%{
+  transform: translate(-3%);
+ }
+
+ 100%{
+  transform: translate(0%);
+ }
+
+
+
+}
 
 
 @media (max-width:1280px) {

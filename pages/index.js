@@ -43,11 +43,7 @@ export default function Home() {
 
   const sendEmail = async (e) => {
     e.preventDefault();
-    // const userName = form.current.user_name.value
-    // const userEmail = form.current.user_email.value
-    // const userMessage = form.current.user_message.value
 
-    // if (userName.length !== 0 && userEmail.length !== 0) {
     await emailjs.sendForm('service_bilalk_gmail', 'template_6ub1rea', form.current, process.env.NEXT_PUBLIC_EMAILJS_KEY)
       .then((result) => {
         openEmailDialog();
@@ -55,7 +51,8 @@ export default function Home() {
       }), (error) => {
         console.log(error.text)
       }
-    // }
+
+
 
   }
 
@@ -134,18 +131,36 @@ export default function Home() {
   }, []);
 
   if (typeof window !== "undefined") {
+    const eye = document.getElementById('eye')
     document.addEventListener('mouseleave', () => {
-      const eye = document.getElementById('eye')
       eye.classList.add(`${styles.eyeHibernate}`);
     })
 
     document.addEventListener('mouseEnter', () => {
-      const eye = document.getElementById('eye')
       eye.classList.remove(`${styles.eyeHibernate}`);
     })
 
-
   }
+
+  const badClick = () => {
+    if (typeof window !== "undefined") {
+      const eyeBackground = document.getElementById('eyeBack')
+      const eye = document.getElementById('eye')
+      eyeBackground.classList.add(`${styles.eyeBounce}`)
+      eye.classList.add(`${styles.eyeBounce}`)
+      setTimeout(removeBadClick, 3000)
+    }
+  }
+
+  const removeBadClick = () => {
+    if (typeof window !== "undefined") {
+      const eyeBackground = document.getElementById('eyeBack')
+      const eye = document.getElementById('eye')
+      eyeBackground.classList.remove(`${styles.eyeBounce}`)
+      eye.classList.remove(`${styles.eyeBounce}`)
+    }
+  }
+
 
   function angle(cx, cy, ex, ey) {
     const dy = ey - cy;
@@ -156,6 +171,8 @@ export default function Home() {
     return deg;
 
   }
+
+
 
   return (
 
@@ -192,8 +209,8 @@ export default function Home() {
 
       <section className={``}>
         <div>
-          <section className={`container xl:w-1/3 w-5/6  mt-5 text-xl flex flex-col justify-center items-center mx-auto`} id="about">
-            <p className={`font-thin text-center ${styles.heroText}`}>Yo! My name&apos;s Bilal, and I&apos;m a full-stack developer, teacher, and blogger. </p>
+          <section onClick={badClick} className={`container xl:w-1/3 w-5/6  mt-5 text-xl flex flex-col justify-center items-center mx-auto`} id="about">
+            <p className={`font-thin text-center ${styles.heroText}`} >Yo! My name&apos;s Bilal, and I&apos;m a full-stack developer, teacher, and blogger. </p>
             <div className={`flex text-center mt-8`}>
               <p className={`border-r pr-10 pt-2 pb-3 font- text-lg `}><span className={``}>I&apos;m experienced in:</span><span className={`text-md font-thin`}> <br /> Next.js <br />TailwindCSS <br />MongoDB <br /> and more...</span></p>
               <p className={`pl-10 pt-2 font-light text-lg`}><span className={`font-medium`}>My hobbies include:</span> <span className={`text-lg font-thin`}><br />Reading <br />Sketching<br />Blogging </span></p>
@@ -202,9 +219,9 @@ export default function Home() {
           </section>
 
           <p className={`mt-20 text-3xl text-center font-semibold ${styles.projectsHeading}`} id="projects">Projects</p>
-          <section className={`mx-auto mt-10 container flex flex-col xl:flex-row gap-10 xl:w-3/4 w-4/5 `}>
+          <section className={`mx-auto mt-10 container flex flex-col xl:flex-row gap-10 xl:w-3/4 w-4/5 `} onClick={badClick}>
             <div className={`mx-auto xl:w-1/2`}>
-              <Image src='/outnetWebsite.jpg' width={700} height={500} alt="..." className={`mx-auto rounded eyeExpandOnHover`} id="projectImage" />
+              <Link href='https://github.com/beelal-k/the-outnet-clone'><Image src='/outnetWebsite.jpg' width={700} height={500} alt="..." className={`mx-auto rounded eyeExpandOnHover`} id="projectImage" /></Link>
               <p className={`font-thin xl:text-lg mt-5 `}>A clone of the e-commerce website &apos;The Outnet&apos;, link to github repo is <Link href='https://github.com/beelal-k/the-outnet-clone' className={`underline font-medium eyeExpandOnHover`}>here</Link></p>
               <p className={`font-semibold mt-1`}>Built with: <span className={`font-thin`}>React.js, Bootstrap,  MongoDB, Express.js</span></p>
             </div>
@@ -223,7 +240,7 @@ export default function Home() {
 
       <section className={`mt-20`} id="contact">
 
-        <p className={`mt-10 text-3xl text-center font-semibold input ${styles.projectsHeading}`} id="projects">Contact me</p>
+        <p className={`mt-10 text-3xl text-center font-semibold input ${styles.projectsHeading}`} onClick={badClick} id="projects">Contact me</p>
         <form className={`mx-auto container flex flex-col xl:w-1/3 gap-5 mt-10 w-4/5 `} ref={form} onSubmit={sendEmail}>
           <input type='text' required placeholder='Name' name="user_name" id='user_name' className={`appearance-none outline-0 shadow bg-transparent border-2 rounded p-3 ${styles.contactInput}`} />
           <input type='email' required placeholder='Email' name="user_email" id='user_email' className={`appearance-none shadow outline-0 bg-transparent border-2 rounded p-3 ${styles.contactInput}`} />
@@ -242,14 +259,12 @@ export default function Home() {
 
       {/* EMAIL SENT POPUP */}
 
-      {/* <div className={`container flex align-end justify-end border`}> */}
       <dialog className={`bg-transparent p-3 container ${styles.emailDialog}`} ref={emailDialog}>
         <div className={`border-2 border-[#1a1a1a] bg-[#f3f3f3] flex justify-between rounded p-4 xl:w-1/4 w-2/3 float-right`}>
-          <p className={`text-[#363636] text-xl font-semibold `}>Email sent!</p>
+          <p className={`text-[#363636] text-xl font-semibold `} onClick={badClick}>Email sent!</p>
           <Image src="/closeIcon.svg" width={20} height={20} alt="..." className={`cursor-pointer`} onClick={closeEmailDialog} />
         </div>
       </dialog>
-      {/* </div> */}
 
     </>
 
