@@ -4,28 +4,26 @@ import Link from 'next/link';
 import Image from 'next/image';
 import emailjs from '@emailjs/browser';
 import styles from '../styles/Home.module.css';
-// import eyeBackground from './images/eyeBackground.svg'
-// import eye from '../public/eyeHole.svg'
-// import outnetWebsite from './images/outnetWebsite.jpg'
-// import githubIcon from './images/githubIcon.svg'
-// import linkedinIcon from './images/linkedinIcon.svg'
-// import mediumIcon from './images/mediumIcon.svg'
-// import zchromeWebsite from './images/zchromeWebsite.jpg'
 
 export default function Home() {
 
   const form = useRef();
   const emailDialog = useRef()
-  const openEmailDialog = () =>{
+  const openEmailDialog = () => {
     emailDialog.current.open = true;
-    setTimeout(closeEmailDialog, 6000)    
-    
+    setTimeout(addFadeOut, 2000)
+    setTimeout(closeEmailDialog, 6000)
+
+  }
+  const addFadeOut = () => {
+    emailDialog.current.classList.add(`${styles.fadeOut}`)
   }
 
-  const closeEmailDialog = () =>{
+  const closeEmailDialog = () => {
     emailDialog.current.open = false;
+    emailDialog.current.classList.remove(`${styles.fadeOut}`)
   }
-  
+
   const scroll2Element = (elemID) => {
     window.scrollTo({
       top: document.getElementById(elemID).offsetTop - 20,
@@ -45,18 +43,25 @@ export default function Home() {
 
   const sendEmail = async (e) => {
     e.preventDefault();
+    // const userName = form.current.user_name.value
+    // const userEmail = form.current.user_email.value
+    // const userMessage = form.current.user_message.value
 
+    // if (userName.length !== 0 && userEmail.length !== 0) {
     await emailjs.sendForm('service_bilalk_gmail', 'template_6ub1rea', form.current, process.env.NEXT_PUBLIC_EMAILJS_KEY)
       .then((result) => {
-        console.log()
+        openEmailDialog();
         console.log(result.text);
       }), (error) => {
         console.log(error.text)
       }
+    // }
+
   }
 
 
   useEffect(() => {
+
 
     const navbar = document.getElementById('navContainer');
     const sticky = navbar.offsetTop;
@@ -160,6 +165,7 @@ export default function Home() {
         <title>Bilal&apos;s Portofolio</title>
         <html lang='en' />
       </Head>
+
       <h1 className={`text-center mt-7 text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl font-semibold`}>Khawaja Muhammad Bilal</h1>
       <header className={``} id="navContainer">
         <nav className={` ${styles.navbar} container text-lg xl:text-xl m-0 xl:mx-auto rounded xl:w-1/3 lg:w-2/3 md:w-3/4 w-100 flex justify-center px-4 pt-4 text-center mx-auto`}>
@@ -203,7 +209,7 @@ export default function Home() {
               <p className={`font-semibold mt-1`}>Built with: <span className={`font-thin`}>React.js, Bootstrap,  MongoDB, Express.js</span></p>
             </div>
 
-            <div className={`mx-auto xl:w-1/2 `} onClick={openEmailDialog}>
+            <div className={`mx-auto xl:w-1/2 `} >
               <Image src='/zchromeWebsite.jpg' width={700} height={500} alt="..." className={`mx-auto eyeExpandOnHover rounded`} />
               <p className={`font-thin xl:text-lg mt-5 `}>A surface pattern design market, currently a <span className={`font-semibold`}>work in progress</span>.</p>
               <p className={`font-semibold mt-1 `}>Built with: <span className={`font-thin`}>React.js, Bootstrap, Firebase</span></p>
@@ -219,9 +225,9 @@ export default function Home() {
 
         <p className={`mt-10 text-3xl text-center font-semibold input ${styles.projectsHeading}`} id="projects">Contact me</p>
         <form className={`mx-auto container flex flex-col xl:w-1/3 gap-5 mt-10 w-4/5 `} ref={form} onSubmit={sendEmail}>
-          <input type='text' placeholder='Name' name="user_name" id='user_name' className={`appearance-none outline-0 shadow bg-transparent border-2 rounded p-3 ${styles.contactInput}`} />
-          <input type='email' placeholder='Email' name="user_email" id='user_email' className={`appearance-none shadow outline-0 bg-transparent border-2 rounded p-3 ${styles.contactInput}`} />
-          <textarea type='' placeholder="What&apos;s up" name="user_message" id='user_message' rows={7} className={`resize-none appearance-none shadow outline-0 bg-transparent border-2 rounded p-3 ${styles.contactInput}`}></textarea>
+          <input type='text' required placeholder='Name' name="user_name" id='user_name' className={`appearance-none outline-0 shadow bg-transparent border-2 rounded p-3 ${styles.contactInput}`} />
+          <input type='email' required placeholder='Email' name="user_email" id='user_email' className={`appearance-none shadow outline-0 bg-transparent border-2 rounded p-3 ${styles.contactInput}`} />
+          <textarea type='' required minLength={10} placeholder="What&apos;s up" name="user_message" id='user_message' rows={7} className={`resize-none appearance-none shadow outline-0 bg-transparent border-2 rounded p-3 ${styles.contactInput}`}></textarea>
           <input type='submit' className={`btn border-2 xl:w-1/3 w-1/2 hover:bg-[#b8b8b8] cursor-pointer hover:border-[#b8b8b8]  hover:transition-all transition-all rounded bg-[#f3f3f3] text-[#363636] font-semibold text-xl mx-auto p-2 mt-3 eyeExpandOnHover`} />
         </form>
 
@@ -237,10 +243,10 @@ export default function Home() {
       {/* EMAIL SENT POPUP */}
 
       {/* <div className={`container flex align-end justify-end border`}> */}
-      <dialog  className={`bg-transparent p-3 container ${styles.emailDialog}`} ref={emailDialog}>
-        <div className={`border-2 border-[#1a1a1a] bg-[#f3f3f3] flex justify-between rounded p-4 w-1/4 float-right`}>
+      <dialog className={`bg-transparent p-3 container ${styles.emailDialog}`} ref={emailDialog}>
+        <div className={`border-2 border-[#1a1a1a] bg-[#f3f3f3] flex justify-between rounded p-4 xl:w-1/4 w-2/3 float-right`}>
           <p className={`text-[#363636] text-xl font-semibold `}>Email sent!</p>
-          <Image src="/closeIcon.svg" width={20} height={20} alt="..." className={`cursor-pointer`} onClick={closeEmailDialog}/>
+          <Image src="/closeIcon.svg" width={20} height={20} alt="..." className={`cursor-pointer`} onClick={closeEmailDialog} />
         </div>
       </dialog>
       {/* </div> */}
