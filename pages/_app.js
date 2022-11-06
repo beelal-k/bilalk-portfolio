@@ -17,8 +17,8 @@ function MyApp({ Component, pageProps }) {
         }
       `}
       </style>
-
       <Component {...pageProps} />
+
     </>
   )
 }
